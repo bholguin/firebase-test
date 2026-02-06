@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 importScripts(
-  'https://www.gstatic.com/firebasejs/12.8.0/firebase-app-compat.js',
+  'https://www.gstatic.com/firebasejs/12.9.0/firebase-app-compat.js',
 );
 importScripts(
-  'https://www.gstatic.com/firebasejs/12.8.0/firebase-messaging-compat.js',
+  'https://www.gstatic.com/firebasejs/12.9.0/firebase-messaging-compat.js',
 );
 
 firebase.initializeApp({
@@ -16,23 +16,8 @@ firebase.initializeApp({
   measurementId: 'G-121MQLFJGY',
 });
 
-// Acelera la activación/control del SW (útil en dev)
-self.addEventListener('install', () => self.skipWaiting());
-self.addEventListener('activate', () => self.clients.claim());
-
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(function (payload) {
-  console.log(
-    '[firebase-messaging-sw.js] Received background message ',
-    payload,
-  );
-  // Customize notification here
-  const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/firebase-logo.png',
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
+messaging.onBackgroundMessage(() => {
+  // Optional: handle background messages.
 });
