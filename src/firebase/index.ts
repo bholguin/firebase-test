@@ -68,7 +68,8 @@ export const requestMessagingToken = async (): Promise<string | null> => {
     '/firebase-messaging-sw.js',
   );
 
-  const messaging = getMessaging();
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
   const token = await getToken(messaging, {
     vapidKey,
     serviceWorkerRegistration: registration,
